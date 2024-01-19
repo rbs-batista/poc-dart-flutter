@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:atm_architecture/presenters/controllers/withdrawal_controller.dart';
 import 'package:atm_architecture/presenters/states/withdrawal_state.dart';
 import 'package:atm_architecture/presenters/view/components/default_scaffold_component.dart';
@@ -15,7 +17,7 @@ class WithdrawalView extends StatefulWidget {
 }
 
 class _WithdrawalViewState extends State<WithdrawalView> with BanknoteToList {
-  final int amount = 200;
+  final int amount = Random().nextInt(200);
 
   @override
   void initState() {
@@ -44,6 +46,7 @@ class _WithdrawalViewState extends State<WithdrawalView> with BanknoteToList {
             }
 
             return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
                   'Valor do saque',
@@ -52,6 +55,7 @@ class _WithdrawalViewState extends State<WithdrawalView> with BanknoteToList {
                   amount.toString(),
                   style: const TextStyle(fontSize: 20),
                 ),
+                const Divider(),
                 ListView.builder(
                   shrinkWrap: true,
                   itemCount: banknote(
