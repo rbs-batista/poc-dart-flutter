@@ -1,6 +1,5 @@
-class HomeState {
-  final bool loading;
-  final String? state;
+import 'package:atm_architecture/presenters/states/base_state.dart';
 
-  HomeState({required this.loading, this.state});
+class HomeState extends BaseState implements IState {
+  HomeState({super.isLoading, super.state});
 }

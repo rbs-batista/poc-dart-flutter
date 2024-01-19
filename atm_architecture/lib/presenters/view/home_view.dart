@@ -1,5 +1,5 @@
 import 'package:atm_architecture/presenters/controllers/home_controller.dart';
-import 'package:atm_architecture/presenters/states/home_state.dart';
+import 'package:atm_architecture/presenters/states/base_state.dart';
 import 'package:atm_architecture/presenters/view/components/default_scaffold_component.dart';
 import 'package:atm_architecture/presenters/view/components/floating_action_button_large_component.dart';
 import 'package:atm_architecture/presenters/view/components/grid_button_component.dart';
@@ -30,12 +30,12 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return DefaultScaffoldComponent(
       title: "Home",
-      body: StreamBuilder<HomeState>(
+      body: StreamBuilder<IState>(
         stream: widget._controller.onStream,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            if (snapshot.data!.loading) {
-              return LoadingComponent(state: snapshot.data!.state ?? "");
+            if (snapshot.data!.isLoading) {
+              return LoadingComponent(state: snapshot.data!.state);
             }
 
             return GridButtonComponent(

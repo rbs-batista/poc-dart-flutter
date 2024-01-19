@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:atm_architecture/presenters/controllers/withdrawal_controller.dart';
-import 'package:atm_architecture/presenters/states/withdrawal_state.dart';
+import 'package:atm_architecture/presenters/states/base_state.dart';
 import 'package:atm_architecture/presenters/view/components/default_scaffold_component.dart';
 import 'package:atm_architecture/presenters/view/components/loading_component.dart';
 import 'package:flutter/material.dart';
@@ -37,12 +37,12 @@ class _WithdrawalViewState extends State<WithdrawalView> with BanknoteToList {
   Widget build(BuildContext context) {
     return DefaultScaffoldComponent(
       title: "Saque",
-      body: StreamBuilder<WithdrawalState>(
+      body: StreamBuilder<IState>(
         stream: widget._controller.onStream,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            if (snapshot.data!.loading) {
-              return LoadingComponent(state: snapshot.data!.state ?? "");
+            if (snapshot.data!.isLoading) {
+              return LoadingComponent(state: snapshot.data!.state);
             }
 
             return Column(
@@ -58,12 +58,11 @@ class _WithdrawalViewState extends State<WithdrawalView> with BanknoteToList {
                 const Divider(),
                 ListView.builder(
                   shrinkWrap: true,
-                  itemCount: banknote(
-                          snapshot.data!.withdrawal?.quantityByBanknote ?? {})
-                      .length,
+                  itemCount:
+                      banknote(snapshot.data!.data?.quantityByBanknote ?? {})
+                          .length,
                   itemBuilder: (context, index) => banknote(
-                      snapshot.data!.withdrawal?.quantityByBanknote ??
-                          {})[index],
+                      snapshot.data!.data?.quantityByBanknote ?? {})[index],
                 ),
               ],
             );

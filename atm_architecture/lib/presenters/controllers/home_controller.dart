@@ -1,21 +1,20 @@
 import 'package:atm_architecture/app_routes.dart';
 import 'package:atm_architecture/presenters/controllers/base_controller.dart';
+import 'package:atm_architecture/presenters/states/base_state.dart';
 import 'package:atm_architecture/presenters/states/home_state.dart';
 import 'package:atm_architecture/route_navigator.dart';
-import 'package:rxdart/subjects.dart';
 
 abstract class IHomeController {
   Future<void> load();
-  Stream<HomeState> get onStream;
   Future<void> navigateToWithdrawal();
   void dispose();
+  Stream<IState> get onStream;
 }
 
 class HomeController extends BaseController implements IHomeController {
-  final _stateController = PublishSubject<HomeState>();
   final IRouteNavigator _navigator;
 
-  HomeController(this._navigator);
+  HomeController(this._navigator) : super(HomeState());
 
   @override
   Future<void> navigateToWithdrawal() async =>
@@ -23,13 +22,10 @@ class HomeController extends BaseController implements IHomeController {
 
   @override
   Future<void> load() async {
-    _stateController.add(HomeState(loading: true, state: "Carregando..."));
+    stateController.add(HomeState(isLoading: true, state: "Carregando..."));
 
     await Future.delayed(const Duration(seconds: 1));
 
-    _stateController.add(HomeState(loading: false));
+    stateController.add(HomeState(isLoading: false));
   }
-
-  @override
-  Stream<HomeState> get onStream => _stateController.stream;
 }

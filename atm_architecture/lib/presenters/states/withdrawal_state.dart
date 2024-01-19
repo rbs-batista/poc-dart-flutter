@@ -1,9 +1,7 @@
-import 'package:atm_architecture/commons/dtos/withdrawal_dto.dart';
+import 'package:atm_architecture/presenters/states/base_state.dart';
 
-class WithdrawalState {
-  final bool loading;
-  final String? state;
-  final WithdrawalDto? withdrawal;
+class WithdrawalState extends BaseState implements IState {
+  //final WithdrawalDto? withdrawal;
 
-  WithdrawalState({required this.loading, this.state, this.withdrawal});
+  WithdrawalState({super.isLoading, super.state, super.data});
 }
