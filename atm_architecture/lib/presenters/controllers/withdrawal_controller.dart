@@ -19,19 +19,19 @@ class WithdrawalController extends BaseController
 
   @override
   Future<void> load() async {
-    stateController.add(WithdrawalState());
+    emit(WithdrawalState(isLoading: true, state: "Carregando..."));
 
     await Future.delayed(const Duration(seconds: 1));
 
-    stateController.add(WithdrawalState(isLoading: false));
+    emit(WithdrawalState(isLoading: false));
   }
 
   @override
   Future<void> toWithdraw({required int amount}) async {
-    stateController.add(WithdrawalState());
+    emit(WithdrawalState(isLoading: true, state: "Carregando..."));
 
     WithdrawalDto withdrawal = await _withdrawalService.getCash(amount: amount);
 
-    stateController.add(WithdrawalState(isLoading: false, data: withdrawal));
+    emit(WithdrawalState(isLoading: false, data: withdrawal));
   }
 }

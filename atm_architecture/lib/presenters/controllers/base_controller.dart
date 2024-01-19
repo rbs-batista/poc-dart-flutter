@@ -5,13 +5,15 @@ import 'package:rxdart/subjects.dart';
 class BaseController extends BlocBase {
   final IState state;
   BaseController(this.state);
-  final stateController = PublishSubject<IState>();
+  final _stateController = PublishSubject<IState>();
 
-  Stream<IState> get onStream => stateController.stream;
+  Stream<IState> get onStream => _stateController.stream;
 
   @override
   void dispose() {
-    stateController.close();
+    _stateController.close();
     super.dispose();
   }
+
+  void emit(IState state) => _stateController.add(state);
 }

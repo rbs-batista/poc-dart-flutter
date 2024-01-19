@@ -11,7 +11,7 @@ class BaasApi implements IBaasApi {
       "banknotes": [200, 100, 50, 20, 10, 5, 2]
     };
 
-    Future.delayed(const Duration(seconds: 1));
+    Future.delayed(const Duration(seconds: 2));
     return banknotes.serialize();
   }
 }

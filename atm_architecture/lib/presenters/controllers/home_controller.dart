@@ -22,10 +22,10 @@ class HomeController extends BaseController implements IHomeController {
 
   @override
   Future<void> load() async {
-    stateController.add(HomeState(isLoading: true, state: "Carregando..."));
+    emit(HomeState(isLoading: true, state: "Carregando..."));
 
     await Future.delayed(const Duration(seconds: 1));
 
-    stateController.add(HomeState(isLoading: false));
+    emit(HomeState(isLoading: false));
   }
 }

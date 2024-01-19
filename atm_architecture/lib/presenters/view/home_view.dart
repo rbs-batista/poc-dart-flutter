@@ -32,6 +32,7 @@ class _HomeViewState extends State<HomeView> {
       title: "Home",
       body: StreamBuilder<IState>(
         stream: widget._controller.onStream,
+        initialData: null,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data!.isLoading) {

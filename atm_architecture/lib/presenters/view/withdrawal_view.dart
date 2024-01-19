@@ -17,7 +17,7 @@ class WithdrawalView extends StatefulWidget {
 }
 
 class _WithdrawalViewState extends State<WithdrawalView> with BanknoteToList {
-  final int amount = Random().nextInt(200);
+  final int amount = Random().nextInt(200) + 3;
 
   @override
   void initState() {
@@ -77,7 +77,8 @@ class _WithdrawalViewState extends State<WithdrawalView> with BanknoteToList {
           mainAxisSize: MainAxisSize.max,
           children: [
             FloatingActionButton(
-              onPressed: () => widget._controller.toWithdraw(amount: amount),
+              onPressed: () async =>
+                  await widget._controller.toWithdraw(amount: amount),
               tooltip: 'Sacar',
               child: const Icon(Icons.attach_money),
             ),
